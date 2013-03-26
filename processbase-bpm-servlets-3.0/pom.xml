@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.processbase</groupId>
+		<artifactId>processbase</artifactId>
+		<version>3.0</version>
+	</parent>
+
+	<packaging>war</packaging>
+	<artifactId>processbase-bpm-servlets</artifactId>
+	<name>Processbase Servlet</name>
+
+	<properties>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<x-tee.version>2.1.1.32</x-tee.version>
+	</properties>
+	<repositories>
+		<repository>
+			<id>wm</id>
+			<name>WM public Maven repository</name>
+			<url>http://maven2.webmedia.ee</url>
+		</repository>		
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-ui-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-ui-bpm</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-ui-bam</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-ui-app</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-raports</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>process-legislations</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ee.smartlink</groupId>
+	  		<artifactId>EstEid</artifactId>	  
+	  		<version>1.2</version>	  		
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>${javaee-web-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt-user.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt-user.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+						<warName>SmartBPM</warName>
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>
+						 <!-- <packagingExcludes>WEB-INF/lib/processbase*.jar</packagingExcludes>-->
+						<packagingIncludes>**/*.xml,**/*.properties,**/*.class,WEB-INF/lib/process-legislations-3.0.jar,WEB-INF/lib/processbase-engine-bpm-3.0.jar,WEB-INF/lib/processbase-raports-3.0.jar,WEB-INF/lib/processbase-engine-bam-3.0.jar,WEB-INF/lib/processbase-ui-app-3.0.jar,WEB-INF/lib/processbase-ui-bam-3.0.jar,WEB-INF/lib/processbase-ui-bpm-3.0.jar,WEB-INF/lib/processbase-ui-core-3.0.jar,WEB-INF/lib/processbase-engine-bpm-3.0.jar,VAADIN/**,META-INF/**,scripts/**,iaikPkcs11Wrapper_sig.jar,SignApplet_sig.jar</packagingIncludes>
+						<!--<outputDirectory>${liferay.deploy.path}</outputDirectory> <packagingIncludes>web/WEB-INF/liferay-display.xml,web/WEB-INF/portlet.xml</packagingIncludes> 
+							Our app has vaadin servlets configured in resources/WEB-INF/web.xml Maven 
+							utters a warning because of it. This configuration should shut it up! FIXME: 
+							Verify that this is a right way to do it. Maybe we should use gwt:mergewebxml? 
+							<packagingExcludes>WEB-INF/web.xml</packagingExcludes> -->
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+		<plugins>
+<!-- 			<plugin> -->
+<!-- 			  <groupId>org.zeroturnaround</groupId> -->
+<!-- 			  <artifactId>jrebel-maven-plugin</artifactId> -->
+<!-- 			  <executions> -->
+<!-- 				<execution> -->
+<!-- 				  <id>generate-rebel-xml</id> -->
+<!-- 				  <phase>process-resources</phase> -->
+<!-- 				  <goals> -->
+<!-- 					<goal>generate</goal> -->
+<!-- 				  </goals> -->
+<!-- 				</execution> -->
+<!-- 			  </executions> -->
+<!-- 			</plugin> -->
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArguments>
+						<endorseddirs>${endorsed.dir}</endorseddirs>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${endorsed.dir}</outputDirectory>
+							<silent>true</silent>
+							<artifactItems>
+								<artifactItem>
+									<groupId>javax</groupId>
+									<artifactId>javaee-endorsed-api</artifactId>
+									<version>6.0</version>
+									<type>jar</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- this plugin will copy generated files to server deploy path -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copyFiles</id>
+						<phase>verify</phase>
+						<configuration>
+							<tasks>
+							 	<delete dir="${server.deploy.path}/SmartBPM" quiet="true"/>
+								<copy todir="${server.deploy.path}" flatten="true"
+									overwrite="true" verbose="true" failonerror="true">
+									<fileset dir="target" includes="*.war" />
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+</project>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.processbase</groupId>
+		<artifactId>processbase</artifactId>
+		<version>3.0</version>
+	</parent>
+
+	<artifactId>processbase-ui-core</artifactId>
+	<url>http://processbase.googlecode.com</url>
+	<name>ProcessBase UI Core</name>
+
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaIncludes>
+								<include>jaxb/bonitaforms/*.xsd</include>
+							</schemaIncludes>
+							<episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-bonitaforms.episode</episodeFile>
+							<generatePackage>org.processbase.ui.core.bonita.forms</generatePackage>
+							<extension>true</extension>
+						</configuration>
+						<id>jaxb-generate-bonitaforms</id>
+					</execution>
+				</executions>
+				<configuration>
+					<catalog>src/main/resources/jaxb/catalog.xml</catalog>
+					<catalogResolver>org.jvnet.jaxb2.maven2.resolver.tools.ClasspathCatalogResolver</catalogResolver>
+					<forceRegenerate>true</forceRegenerate>
+					<generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+								<property name="src.dir" value="${project.build.sourceDirectory}" />
+								<property name="package.dir" value="org/processbase/ui/core" />
+								<property name="package.name" value="org.processbase.ui.core" />
+								<property name="buildtime" value="${maven.build.timestamp}" />
+
+								<echo file="${src.dir}/${package.dir}/Version.java"	message="package ${package.name};${line.separator}" />
+								<echo file="${src.dir}/${package.dir}/Version.java" append="true" message="public final class Version {${line.separator}" />
+								<echo file="${src.dir}/${package.dir}/Version.java" append="true" message=" public static String VERSION=&quot;${buildtime}&quot;;${line.separator}" />
+								<echo file="${src.dir}/${package.dir}/Version.java" append="true" message="}${line.separator}" />
+								<echo message="BUILD ${buildtime}" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+			  <groupId>org.zeroturnaround</groupId>
+			  <artifactId>jrebel-maven-plugin</artifactId>
+			  <executions>
+				<execution>
+				  <id>generate-rebel-xml</id>
+				  <phase>process-resources</phase>
+				  <goals>
+					<goal>generate</goal>
+				  </goals>
+				</execution>
+			  </executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.bonita</groupId>
+			<artifactId>bonita-server</artifactId>
+			<version>${bonita.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.glassfish.security</groupId>
+			<artifactId>security</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.security</groupId>
+			<artifactId>security</artifactId>
+			<version>${glassfish.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.htmlparser.jericho</groupId>
+			<artifactId>jericho-html</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-svggen</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>processbase-engine-bam</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.sf.ehcache</groupId>
+		    <artifactId>ehcache-core</artifactId>
+		    <version>${ehcache.version}</version>		    
+		  </dependency>
+		  
+	</dependencies>
+</project>

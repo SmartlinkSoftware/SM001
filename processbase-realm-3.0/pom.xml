@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.processbase</groupId>
+    <artifactId>processbase</artifactId>
+    <version>3.0</version>
+  </parent>
+
+  <artifactId>processbase-realm</artifactId>
+  <url>http://processbase.googlecode.com</url>
+  <name>ProcessBase Realm</name>
+  <build>
+	<sourceDirectory>src</sourceDirectory>
+	 <plugins>            
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            ${project.groupId}.${project.artifactId};version=${project.version}
+                        </Export-Package>
+                        <Import-Package>
+                            com.sun.appserv.security,
+                            org.glassfish.security.common,
+                            com.sun.enterprise.security.auth.realm,
+                            com.sun.enterprise.security.auth.login.common,
+                            java.util,
+                            javax.security.auth
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+	
+  </build>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <prerequisites>
+    <maven>2.2</maven>
+  </prerequisites>
+
+  <dependencies>
+    <dependency>
+	  <groupId>org.glassfish.security</groupId>
+	  <artifactId>security</artifactId>
+	  <version>3.1</version>
+	</dependency>
+	<dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>${log4j.version}</version>
+</dependency>
+  </dependencies>
+  
+</project>

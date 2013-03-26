@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.processbase</groupId>
+  <artifactId>soap-connector</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.26</version>
+  <name>soap-connector</name>
+  <url>http://maven.apache.org</url>
+  <repositories>
+	<repository>
+		<id>wm</id>
+		<name>WM public Maven repository</name>
+		<url>http://maven2.webmedia.ee</url>
+	</repository>
+  </repositories>
+  <build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>testng</artifactId>
+					<version>1.2</version>
+					<configuration>
+						<configuration>
+							<properties>
+								<maven.testng.suitexml.name>${basedir}/src/test/resources/testng.xml</maven.testng.suitexml.name>
+							</properties>
+						</configuration>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+  </build>
+  
+  <dependencies>
+  		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.1.1</version>
+			<scope>test</scope>
+		</dependency>
+  		<dependency>
+			<groupId>org.ow2.bonita</groupId>
+			<artifactId>bonita-server</artifactId>
+			<version>5.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>ee.eesti.id</groupId>
+			<artifactId>jdigidoc</artifactId>
+			<version>2.3.99.3</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency> -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.3.0</version>
+		</dependency>
+		<!-- DVK -->
+		<dependency>
+			<groupId>ee.webmedia.xtee</groupId>
+			<artifactId>xtee-client-dhl</artifactId>
+			<version>2.1.1.43</version>			
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+		<!-- Adit -->
+		<dependency>
+			<groupId>ee.finestmedia.xtee</groupId>
+			<artifactId>xtee-client-adit</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+  </dependencies>
+</project>
